@@ -1,0 +1,4 @@
+### Test the `/professional` endpoint
+GET http://localhost:8080/professional
+Accept: application/json
+
