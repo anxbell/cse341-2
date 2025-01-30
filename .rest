@@ -2,3 +2,11 @@
 GET http://localhost:8080/professional
 Accept: application/json
 
+### Test get All contacts
+
+GET http://localhost:8080/contacts
+
+###  Get a Single Contact by ID
+
+GET http://localhost:8080/contacts/679bf34348862decc549328e
+

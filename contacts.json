@@ -1,0 +1,23 @@
+[
+    {
+        "firstName": "David",
+        "lastName": "Erazo",
+        "email": "daviderazo@email.com",
+        "favoriteColor": "Pink",
+        "birthday": "1995-08-12"
+    },
+    {
+        "firstName": "Dana",
+        "lastName": "Guerrero",
+        "email": "danaguerrero@email.com",
+        "favoriteColor": "Red",
+        "birthday": "1998-03-25"
+    },
+    {
+        "firstName": "Karen",
+        "lastName": "Perdomo",
+        "email": "karenperdomo@email.com",
+        "favoriteColor": "Purple",
+        "birthday": "2000-07-10"
+    }
+]

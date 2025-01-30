@@ -6,6 +6,12 @@ const app = express();
 const port = process.env.PORT || 8080;
 const mongoURI = process.env.MONGO_URI;
 
+//new contacts route 
+app.use(express.json());
+const contactsRouter = require('./routes/contacts');
+app.use('/contacts', contactsRouter);
+
+
 // Connect to MongoDB
 mongoose.connect(mongoURI)
   .then(() => {
