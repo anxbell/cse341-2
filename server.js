@@ -5,6 +5,7 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 8080;
 const mongoURI = process.env.MONGO_URI;
+const cors = require('cors'); //
 
 //new contacts route 
 app.use(express.json());
@@ -61,3 +62,12 @@ app.get('/professional', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+//CORS
+const corsOptions = {
+  origin: 'https://cse341-2-35kz.onrender.com',  // Your Render frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type'],
+};
+
+app.use(cors(corsOptions));
