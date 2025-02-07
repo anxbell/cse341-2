@@ -1,4 +1,4 @@
-### Test the `/professional` endpoint
+### Test the /professional endpoint
 GET http://localhost:8080/professional
 Accept: application/json
 
@@ -9,4 +9,31 @@ GET http://localhost:8080/contacts
 ###  Get a Single Contact by ID
 
 GET http://localhost:8080/contacts/679bf34348862decc549328e
+
+### Create a new contact
+POST http://localhost:8080/contacts
+Content-Type: application/json
+
+{
+    "firstName": "Sadie",
+    "lastName": "Smith",
+    "email": "sadiesmith@email.com",
+    "favoriteColor": "White",
+    "birthday": "1990-12-12"
+}
+
+### Update a contact (change the ID)
+PUT http://localhost:8080/contacts/67a66234cee69324596d7245
+Content-Type: application/json
+
+{
+    "firstName": "Sadie Updated",
+    "lastName": "Smith",
+    "email": "sadiesmith@email.com",
+    "favoriteColor": "Gray",
+    "birthday": "1990-12-12"
+}
+
+### Delete a contact (change the ID)
+DELETE http://localhost:8080/contacts/67a66234cee69324596d7245
 

@@ -7,8 +7,11 @@ const port = process.env.PORT || 8080;
 const mongoURI = process.env.MONGO_URI;
 const cors = require('cors'); //
 
-//new contacts route 
+// middleware
+app.use(cors());
 app.use(express.json());
+
+//new contacts route 
 const contactsRouter = require('./routes/contacts');
 app.use('/contacts', contactsRouter);
 
