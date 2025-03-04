@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const Contact = require('../models/contact');
+const contactController = require('../controller/contactController');
 
-//GET - all contacts
+// GET all contacts
 /**
  * @swagger
  * /contacts:
@@ -15,16 +15,9 @@ const Contact = require('../models/contact');
  *       500:
  *         description: Server error.
  */
-router.get('/', async (req, res) => {
-    try {
-        const contacts = await Contact.find();
-        res.json(contacts);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
+router.get('/', contactController.getAllContacts);
 
-//GET - contact by id
+// GET contact by ID
 /**
  * @swagger
  * /contacts/{id}:
@@ -46,17 +39,9 @@ router.get('/', async (req, res) => {
  *       500:
  *         description: Server error.
  */
-router.get('/:id', async (req, res) => {
-    try {
-        const contact = await Contact.findById(req.params.id);
-        if (!contact) return res.status(404).json({ message: 'Contact not found' });
-        res.json(contact);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
+router.get('/:id', contactController.getContactById);
 
-//POST - create a new contact
+// POST create a new contact
 /**
  * @swagger
  * /contacts:
@@ -89,20 +74,9 @@ router.get('/:id', async (req, res) => {
  *       500:
  *         description: Server error.
  */
-router.post("/", async (req, res) => {
-    try {
-        const { firstName, lastName, email, favoriteColor, birthday } = req.body;
-        if (!firstName || !lastName || !email || !favoriteColor || !birthday) {
-            return res.status(400).json({ error: "All fields are required" });
-        }
-        const newContact = await Contact.create({ firstName, lastName, email, favoriteColor, birthday });
-        res.status(201).json({ id: newContact._id });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+router.post("/", contactController.createContact);
 
-//PUT - Update by ID
+// PUT update contact by ID
 /**
  * @swagger
  * /contacts/{id}:
@@ -142,41 +116,9 @@ router.post("/", async (req, res) => {
  *       500:
  *         description: Server error.
  */
-router.put("/:id", async (req, res) => {
-    try {
-        const { id } = req.params;
-        const updatedContact = await Contact.findByIdAndUpdate(id, req.body, { new: true });
+router.put("/:id", contactController.updateContact);
 
-        if (!updatedContact) {
-            return res.status(404).json({ error: "Contact not found" });
-        }
-
-        res.status(204).send();
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-// router.put("/:id", async (req, res) => {
-//     try {
-//         const contactExists = await Contact.findById(req.params.id);
-//         if (!contactExists) {
-//             return res.status(404).json({ error: "Contact not found" });
-//         }
-
-//         const contact = await Contact.findByIdAndUpdate (
-//             req.params.id,
-//             req.body,
-//             {
-//                 new: true,
-//                 runValidators: true
-//             }
-//         );
-
-//         if (!contact)
-//     }
-// });
-//DELETE contact by id
+// DELETE contact by ID
 /**
  * @swagger
  * /contacts/{id}:
@@ -198,19 +140,6 @@ router.put("/:id", async (req, res) => {
  *       500:
  *         description: Server error.
  */
-router.delete("/:id", async (req, res) => {
-    try {
-        const { id } = req.params;
-        const deletedContact = await Contact.findByIdAndDelete(id);
-
-        if (!deletedContact) {
-            return res.status(404).json({ error: "Contact not found" });
-        }
-
-        res.status(200).send();
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
+router.delete("/:id", contactController.deleteContact);
 
 module.exports = router;
