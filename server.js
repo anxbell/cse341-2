@@ -1,15 +1,28 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
 require('dotenv').config();
-const app = express();
-const port = process.env.PORT || 8080;
 const mongoURI = process.env.MONGO_URI;
 const cors = require('cors'); //
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
+
+const app = express();
+//in order to frontend work
+app
+  .use(bodyParser.json())
+  .use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+  })
+  .use('/', require('./routes/contacts'));
 
 // middleware
 app.use(cors());
-app.use(express.json());
+
+// Serve Swagger UI
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //new contacts route 
 const contactsRouter = require('./routes/contacts');
@@ -62,6 +75,8 @@ app.get('/professional', async (req, res) => {
     }
 });
 
+//Start the server
+const port = process.env.PORT || 8080;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
@@ -74,3 +89,9 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+//swagger depencies 
+//npm install swagger-ui-express swagger-autogen
+//nodemon
+//npm install -g nodemon
+//npm install --save-dev nodemon
