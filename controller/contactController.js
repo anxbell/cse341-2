@@ -39,13 +39,19 @@ const createContact = async (req, res) => {
 const updateContact = async (req, res) => {
     try {
         const { id } = req.params;
-        const updatedContact = await Contact.findByIdAndUpdate(id, req.body, { new: true });
+        const updateData = req.body;
+
+        if (!id) {
+            return res.status(400).json({ error: "Missing contact ID" });
+        }
+
+        const updatedContact = await Contact.findByIdAndUpdate(id, updateData, { new: true });
 
         if (!updatedContact) {
             return res.status(404).json({ error: "Contact not found" });
         }
 
-        res.status(204).send();
+        res.status(200).json(updatedContact);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -54,7 +60,11 @@ const updateContact = async (req, res) => {
 // Delete contact by ID
 const deleteContact = async (req, res) => {
     try {
+
         const { id } = req.params;
+        if (!id) {
+            return res.status(400).json({ error: "Missing contact ID" });
+        }
         const deletedContact = await Contact.findByIdAndDelete(id);
 
         if (!deletedContact) {
@@ -66,6 +76,8 @@ const deleteContact = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+
 
 module.exports = {
     getAllContacts,

@@ -8,14 +8,14 @@ GET http://localhost:8080/contacts
 
 ###  Get a Single Contact by ID
 
-GET http://localhost:8080/contacts/67c733a933c0d05f1d03d817
+GET http://localhost:8080/contacts/67c768aae9b08419668ed545
 
 ### Create a new contact
 POST http://localhost:8080/contacts
 Content-Type: application/json
 
 {
-    "firstName": "Sadie",
+    "firstName": "Sadie22",
     "lastName": "Smith",
     "email": "sadiesmith@email.com",
     "favoriteColor": "White",
@@ -23,11 +23,11 @@ Content-Type: application/json
 }
 
 ### Update a contact (change the ID)
-PUT http://localhost:8080/contacts/67c733a933c0d05f1d03d817
+PUT http://localhost:8080/contacts/67c768aae9b08419668ed545
 Content-Type: application/json
 
 {
-    "firstName": "Sadie Updated",
+    "firstName": "Karen Updated",
     "lastName": "Smith",
     "email": "sadiesmith@email.com",
     "favoriteColor": "Gray",
@@ -35,7 +35,7 @@ Content-Type: application/json
 }
 
 ### Delete a contact (change the ID)
-DELETE http://localhost:8080/contacts/67c7501dafd023b2f035f8d5
+DELETE http://localhost:8080/contacts/67c768aae9b08419668ed545
 
 ###
 GET https://cse341-2-35kz.onrender.com/contacts

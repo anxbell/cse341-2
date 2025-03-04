@@ -82,7 +82,7 @@ app.listen(port, () => {
 
 //CORS
 const corsOptions = {
-  origin: 'https://cse341-2-35kz.onrender.com',  // Your Render frontend URL
+  origin: ['https://cse341-2-35kz.onrender.com', 'https://cse341-contacts-frontend.netlify.app/', 'http://localhost:8080'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type'],
 };
