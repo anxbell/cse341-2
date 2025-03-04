@@ -3,7 +3,7 @@
   "info": {
     "version": "1.0.0",
     "title": "REST API",
-    "description": ""
+    "description": "API for managing contacts and professional information"
   },
   "host": "cse341-2-35kz.onrender.com",
   "basePath": "/",
@@ -11,25 +11,39 @@
     "https"
   ],
   "paths": {
-    "/professional": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
     "/contacts": {
       "get": {
-        "description": "",
+        "description": "Get all contacts",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "List of contacts",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "description": "The ID of the contact"
+                  },
+                  "firstName": {
+                    "type": "string"
+                  },
+                  "lastName": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "favoriteColor": {
+                    "type": "string"
+                  },
+                  "birthday": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
           },
           "500": {
             "description": "Internal Server Error"
@@ -37,28 +51,34 @@
         }
       },
       "post": {
-        "description": "",
+        "description": "Create a new contact",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "firstName": {
-                  "example": "any"
+                  "type": "string",
+                  "description": "First name of the contact"
                 },
                 "lastName": {
-                  "example": "any"
+                  "type": "string",
+                  "description": "Last name of the contact"
                 },
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "description": "Email address of the contact"
                 },
                 "favoriteColor": {
-                  "example": "any"
+                  "type": "string",
+                  "description": "Favorite color of the contact"
                 },
                 "birthday": {
-                  "example": "any"
+                  "type": "string",
+                  "description": "Birthday of the contact"
                 }
               }
             }
@@ -66,7 +86,7 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Contact created successfully"
           },
           "400": {
             "description": "Bad Request"
@@ -79,7 +99,7 @@
     },
     "/contacts/{id}": {
       "get": {
-        "description": "",
+        "description": "Get a contact by ID",
         "parameters": [
           {
             "name": "id",
@@ -90,10 +110,34 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "The contact",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "The ID of the contact"
+                },
+                "firstName": {
+                  "type": "string"
+                },
+                "lastName": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "favoriteColor": {
+                  "type": "string"
+                },
+                "birthday": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "404": {
-            "description": "Not Found"
+            "description": "Contact not found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -101,21 +145,78 @@
         }
       },
       "put": {
-        "description": "",
+        "description": "Update a contact by ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "description": "First name of the contact"
+                },
+                "lastName": {
+                  "type": "string",
+                  "description": "Last name of the contact"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "Email address of the contact"
+                },
+                "favoriteColor": {
+                  "type": "string",
+                  "description": "Favorite color of the contact"
+                },
+                "birthday": {
+                  "type": "string",
+                  "description": "Birthday of the contact"
+                }
+              }
+            }
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
+          "200": {
+            "description": "The updated contact",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "The ID of the contact"
+                },
+                "firstName": {
+                  "type": "string"
+                },
+                "lastName": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "favoriteColor": {
+                  "type": "string"
+                },
+                "birthday": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Contact not found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -123,7 +224,7 @@
         }
       },
       "delete": {
-        "description": "",
+        "description": "Delete a contact by ID",
         "parameters": [
           {
             "name": "id",
@@ -134,13 +235,98 @@
         ],
         "responses": {
           "204": {
-            "description": "No Content"
+            "description": "No content"
           },
           "404": {
-            "description": "Not Found"
+            "description": "Contact not found"
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/professional": {
+      "get": {
+        "description": "Get professional information",
+        "responses": {
+          "200": {
+            "description": "Professional data",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "The ID of the professional data"
+                },
+                "professionalName": {
+                  "type": "string",
+                  "description": "The name of the professional"
+                },
+                "nameLink": {
+                  "type": "object",
+                  "properties": {
+                    "firstName": {
+                      "type": "string",
+                      "description": "The first name of the professional"
+                    },
+                    "url": {
+                      "type": "string",
+                      "description": "URL link"
+                    }
+                  }
+                },
+                "linkedInLink": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "description": "LinkedIn link text"
+                    },
+                    "link": {
+                      "type": "string",
+                      "description": "LinkedIn link URL"
+                    }
+                  }
+                },
+                "githubLink": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "description": "GitHub link text"
+                    },
+                    "link": {
+                      "type": "string",
+                      "description": "GitHub link URL"
+                    }
+                  }
+                },
+                "base64Image": {
+                  "type": "string",
+                  "description": "Base64 encoded image"
+                },
+                "primaryDescription": {
+                  "type": "string",
+                  "description": "Primary description of the professional"
+                },
+                "workDescription1": {
+                  "type": "string",
+                  "description": "Work description 1"
+                },
+                "workDescription2": {
+                  "type": "string",
+                  "description": "Work description 2"
+                },
+                "linkTitleText": {
+                  "type": "string",
+                  "description": "Text for the link"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error fetching professional data"
           }
         }
       }
